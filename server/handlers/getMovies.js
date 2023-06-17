@@ -1,8 +1,12 @@
-const getMovies = (req, res) => {
+const getAllMovies = require('../contollers/getAllMovies') 
+
+const getMovies = async (req, res) => {
     try {
-        res.send('get movies')
+        const allMovies = await getAllMovies();
+
+        res.status(200).json({ message: allMovies });
     } catch (error) {
-        console.log(error)
+        res.status(500).json({ message: error })
     }
 };
 

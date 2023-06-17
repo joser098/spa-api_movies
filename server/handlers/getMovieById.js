@@ -1,10 +1,14 @@
-const getMovieById = (req, res) => {
+const getById = require('../contollers/getById');
+
+const getMovieById = async (req, res, next) => {
     try {
         const { id } = req.params;
+        console.log(id)
+        const movieFound = await getById(id);
 
-        res.send(`Get movie by id: ${id}`)
+        res.status(200).json({ message: movieFound });
     } catch (error) {
-        console.log(error)
+        next(error)
     }
 };
 

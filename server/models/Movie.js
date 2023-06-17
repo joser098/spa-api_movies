@@ -1,14 +1,24 @@
 const { Schema, model} = require('mongoose');
 
-const MovieSchema = new Schema({
-    title: { type: String, required: true },
-    synopsis: { type: String, required: true },
-    author: { type: String, required: true},
-    release: { type: Date, required: true},
-    actors: { type:[String], required: true },
-    collected: { type: Number, required: true },
-    image: { type: String, required: true },
-    created_at: { type: Date, default: Date.now }
+const movieSchema = new Schema({
+    title: String,
+    synopsis: String,
+    author: String,
+    release: Date,
+    actors: [String],
+    collected: Number,
+    image: String,
+    created_at: Date
 });
 
-module.exports = model('Movie', MovieSchema)
+movieSchema.set('toJSON', {
+    transform: (document, returnedObject) => {
+        returnedObject.id = returnedObject._id
+        delete returnedObject._id
+        delete returnedObject.__v
+    }
+})
+
+const Movie = model('Movie', movieSchema)
+
+module.exports = Movie;

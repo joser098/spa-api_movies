@@ -1,10 +1,14 @@
-const putMovie = (req, res) => {
-    try {
-        const { id } = req.params;
+const updateMovie = require("../contollers/updateMovie");
 
-        res.send(`put Movie ${id}`)
+const putMovie = async (req, res) => {
+    try {
+        const data = req.body;
+
+        const movie = await updateMovie(data)
+
+        res.status(200).json({ message: movie });
     } catch (error) {
-        console.log(error)        
+        res.status(500).json({ error: error });        
     }
 };
 

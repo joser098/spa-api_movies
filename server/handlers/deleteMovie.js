@@ -1,10 +1,13 @@
-const deleteMovive = (req, res) => {
+const removeMovie = require('../contollers/removeMovie');
+
+const deleteMovive = async (req, res) => {
     try {
         const { id } = req.params;
+        const movie = await removeMovie(id)
 
-        res.send(`Delete Movie ${id}`)
+        res.status(200).json({ message: movie});
     } catch (error) {
-        console.log(error)
+        res.status(500).json({ error: error})
     }
 };
 
